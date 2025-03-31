@@ -1,0 +1,157 @@
+/*
+--- 01 TYPOGRAPHY SYSTEM
+
+- Font sizes (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+DESKTOP : 16 | 32 | 120  
+Mobile : 11 | 20| 83  
+
+- Font weights
+Default: 400
+Medium: 500
+Semi-bold: 600
+Bold: 700
+
+- Line heights
+Default: 1
+Small: 1.05
+Medium: 1.2
+Paragraph default: 1.6
+
+- Letter spacing
+-0.5px
+0.75px
+
+--- 02 COLORS
+
+- Primary1:#444e57
+- Primary2: #2d343b
+- Primary3: #1c2022
+- Tints:
+#cd5832
+#f8b657
+#cb821c
+#375650
+
+- Shades: 
+#f6f6f3
+#d4d4d4
+#898888
+
+
+--- 06 BORDER-RADIUS
+
+Default: 20px
+Medium: 30px
+
+--- 07 WHITESPACE
+
+- Spacing system (px)
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+*/
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  /* font-size: 10px; */
+  /* 10px / 16px = 0.625 = 62.5% */
+  /* Percentage of user's browser font-size setting */
+  font-size: 62.5%;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  color: #f6f6f3;
+  background-color: #1c2022;
+}
+
+/* 
+GENERAL COMPONENTS
+*/
+
+button {
+  border: none;
+  background-color: #2d343b;
+  padding: 1rem 3.2rem;
+  font-family: 'Open Sans', sans-serif;
+  color: #f6f6f3;
+  font-size: 1.6rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.container {
+  max-width: 120rem;
+  min-height: 70vh;
+  margin: 0 auto;
+  padding: 0 6rem;
+  /* background-color: red; */
+}
+
+.grid--2-col {
+  display: grid;
+  column-gap: 2rem;
+  row-gap: 9.6rem;
+  grid-template-columns: 3fr 1fr;
+}
+
+.grid--row {
+  display: grid;
+  flex-direction: column;
+  list-style: none;
+  gap: 3.5rem;
+}
+.flexbox-2 {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+.header-main {
+  padding: 3.5rem 0;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+  font-size: 1rem;
+  color: #898888;
+}
+img {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+.btn {
+  border-radius: 100%;
+  width: 4rem;
+  height: 4rem;
+  padding: 1rem;
+  background-color: #444e57;
+}
+/* 
+HEADER TAB COMPONENTS
+*/
+.nav-tab {
+  display: flex;
+  justify-content: center;
+}
+.nav-tab-btn {
+  border-radius: 15px;
+}
+.btn-timer {
+  color: #f8b657;
+}
+.btn-stopwatch {
+  background-color: #1c2022;
+  color: #d4d4d4;
+  transform: translateX(-2rem);
+}

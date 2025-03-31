@@ -1,0 +1,133 @@
+/* /////////////////////////////////////////// */
+
+/* 
+CURRENT TIME COMPONENTS
+*/
+.current-time {
+  display: flex;
+  justify-content: center;
+  font-size: 7.2rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding-bottom: 5rem;
+}
+
+/* 
+LIST TIMER COMPONENTS
+*/
+.grid--2-col {
+  background-color: #2d343b;
+  border-radius: 10px;
+  padding: 1.5rem 2rem;
+}
+.timer-name {
+  display: flex;
+  align-items: center;
+  font-size: 2.4rem;
+}
+.timer-duration {
+  font-size: 2.4rem;
+}
+.progress-container {
+  width: 100%;
+  margin-top: 1rem;
+  height: 0.6rem;
+  background-color: #444e57;
+  border-radius: 10px;
+}
+.progress-bar {
+  width: 70%;
+  height: 100%;
+  background-color: #cb821c;
+  border-radius: 10px;
+}
+.progressing-right {
+  display: flex;
+  width: 100%;
+  gap: 1.2rem;
+  justify-content: right;
+}
+.grid--break {
+  max-width: 80%;
+}
+.breakstate {
+  background-color: #1c2022;
+  border-radius: 20px;
+  padding: 1.2rem 2rem;
+}
+.btn-red {
+  background-color: #cd5832;
+  padding: 1rem 0rem;
+}
+.btn-add-timer {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  padding: 2rem 0rem;
+  background-color: #cb821c;
+}
+
+/* /////////////////////////////////////////// */
+/* 
+CURRENT TIME COMPONENTS
+*/
+.current-stopwatch {
+  display: flex;
+  justify-content: center;
+  font-size: 7.2rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 3.2rem 0 0rem 0;
+}
+/* 
+BTN STOPWATCH COMPONENTS
+*/
+.flexbox--stopwatch {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  padding: 3rem 0 7.5rem 0;
+}
+.stopwatch-btn-pause,
+.stopwatch-btn-resume {
+  background-color: #cb821c;
+}
+
+/* 
+List STOPWATCH COMPONENTS
+*/
+.lap {
+  padding: 0 2rem;
+}
+.scroll-lap {
+  max-height: 500px;
+  overflow-y: auto;
+}
+/* Largeur de la scrollbar */
+.scroll-lap::-webkit-scrollbar {
+  width: 8px; /* Ajuste selon tes préférences */
+}
+
+/* Couleur/fond de la “piste” de la scrollbar */
+.scroll-lap::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+/* Couleur/fond de la “thumb” (partie coulissante) */
+.scroll-lap::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+/* Couleur au survol de la thumb */
+.scroll-lap::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+/* #timer {
+  display: none;
+} */
+
+#stopwatch {
+  display: none;
+}

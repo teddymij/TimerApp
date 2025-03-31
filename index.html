@@ -3,7 +3,169 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Timer App Smoking</title>
+    <!-- Font Open sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/general.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/script.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <header class="header-main">
+      <nav class="nav-tab">
+        <button class="nav-tab-btn btn-timer">Timer</button>
+        <button class="nav-tab-btn btn-stopwatch">Stopwatch</button>
+      </nav>
+    </header>
+    <main>
+      <div class="container">
+        <section id="timer">
+          <h1 class="current-time">11:50 pm</h1>
+          <nav class="grid--row">
+            <li class="timer" id="1">
+              <div class="grid--2-col">
+                <div class="progressing-left">
+                  <div class="flexbox-2">
+                    <h2 class="timer-name">Workout</h2>
+                    <h2 class="timer-duration">20:00</h2>
+                  </div>
+                  <div class="progress-container">
+                    <div class="progress-bar"></div>
+                  </div>
+                </div>
+                <div class="progressing-right">
+                  <button class="btn btn-start">
+                    <img src="img/icon-pause.svg" alt="Close-button" />
+                  </button>
+                  <button class="btn btn-stop">
+                    <img src="img/icon-stop.svg" alt="Close-button" />
+                  </button>
+                  <button class="btn btn-close" id="delete-timer-1">
+                    <img src="img/icon-close.svg" alt="Close-button" />
+                  </button>
+                </div>
+              </div>
+            </li>
+            <li class="timer" id="2">
+              <div class="grid--2-col grid--break">
+                <div class="break-left">
+                  <div class="flexbox-2 breakstate">
+                    <h2 class="timer-name">Break</h2>
+                    <h2 class="timer-duration">04:15</h2>
+                  </div>
+                </div>
+                <div class="break-progressing-right">
+                  <div class="break-progressing-bar"></div>
+                </div>
+              </div>
+            </li>
+            <li class="timer" id="3">
+              <div class="grid--2-col grid--timeup">
+                <h2 class="timer-name">Time's up !</h2>
+                <button class="nav-tab-btn btn-red">Start Break</button>
+              </div>
+            </li>
+            <li class="timer" id="4">
+              <div class="grid--2-col grid--breakend">
+                <h2 class="timer-name">Break end</h2>
+                <div class="progressing-right">
+                  <button class="btn btn-reset">
+                    <img src="img/icon-reset.svg" alt="Reset-button" />
+                  </button>
+                  <button class="btn btn-close" id="delete-timer-4">
+                    <img src="img/icon-close.svg" alt="Close-button" />
+                  </button>
+                </div>
+              </div>
+            </li>
+            <li class="timer">
+              <button class="btn btn-add-timer" id="delete-timer-4">
+                Add Timer
+              </button>
+            </li>
+          </nav>
+        </section>
+        <section id="stopwatch">
+          <h1 class="current-stopwatch">01:02:15</h1>
+          <div class="flexbox--stopwatch">
+            <button class="stopwatch-btn-round">+ Round</button>
+            <button class="stopwatch-btn-reset" hidden>Reset</button>
+            <button class="stopwatch-btn-pause">Pause</button>
+            <button class="stopwatch-btn-resume" hidden>Resume</button>
+          </div>
+          <nav class="grid--row scroll-lap">
+            <li class="lap flexbox-2" id="1">
+              <h2 class="lap-name">Lap 1</h2>
+              <h2 class="lap-time">01:02:15</h2>
+            </li>
+            <li class="lap flexbox-2" id="2">
+              <h2 class="lap-name">Lap 2</h2>
+              <h2 class="lap-time">01:02:15</h2>
+            </li>
+            <li class="lap flexbox-2" id="3">
+              <h2 class="lap-name">Lap 3</h2>
+              <h2 class="lap-time">01:02:15</h2>
+            </li>
+            <li class="lap flexbox-2" id="3">
+              <h2 class="lap-name">Lap 3</h2>
+              <h2 class="lap-time">01:02:15</h2>
+            </li>
+            <li class="lap flexbox-2" id="3">
+              <h2 class="lap-name">Lap 3</h2>
+              <h2 class="lap-time">01:02:15</h2>
+            </li>
+            <li class="lap flexbox-2" id="3">
+              <h2 class="lap-name">Lap 3</h2>
+              <h2 class="lap-time">01:02:15</h2>
+            </li>
+            <li class="lap flexbox-2" id="3">
+              <h2 class="lap-name">Lap 3</h2>
+              <h2 class="lap-time">01:02:15</h2>
+            </li>
+            <li class="lap flexbox-2" id="3">
+              <h2 class="lap-name">Lap 3</h2>
+              <h2 class="lap-time">01:02:15</h2>
+            </li>
+            <li class="lap flexbox-2" id="3">
+              <h2 class="lap-name">Lap 3</h2>
+              <h2 class="lap-time">01:02:15</h2>
+            </li>
+            <li class="lap flexbox-2" id="3">
+              <h2 class="lap-name">Lap 3</h2>
+              <h2 class="lap-time">01:02:15</h2>
+            </li>
+            <li class="lap flexbox-2" id="3">
+              <h2 class="lap-name">Lap 3</h2>
+              <h2 class="lap-time">01:02:15</h2>
+            </li>
+            <li class="lap flexbox-2" id="3">
+              <h2 class="lap-name">Lap 3</h2>
+              <h2 class="lap-time">01:02:15</h2>
+            </li>
+            <li class="lap flexbox-2" id="3">
+              <h2 class="lap-name">Lap 3</h2>
+              <h2 class="lap-time">01:02:15</h2>
+            </li>
+            <li class="lap flexbox-2" id="3">
+              <h2 class="lap-name">Lap 3</h2>
+              <h2 class="lap-time">01:02:15</h2>
+            </li>
+            <li class="lap flexbox-2" id="3">
+              <h2 class="lap-name">Lap 3</h2>
+              <h2 class="lap-time">01:02:15</h2>
+            </li>
+          </nav>
+        </section>
+      </div>
+    </main>
+    <footer class="footer">
+      <p>© 2025 Teddy. All rights reserved.</p>
+    </footer>
+  </body>
 </html>
