@@ -9,7 +9,7 @@ CURRENT TIME COMPONENTS
   font-size: 7.2rem;
   font-weight: 600;
   letter-spacing: 0.5px;
-  padding-bottom: 5rem;
+  padding: 4rem 0 5rem 0;
 }
 
 /* 
@@ -38,7 +38,7 @@ LIST TIMER COMPONENTS
 .progress-bar {
   width: 70%;
   height: 100%;
-  background-color: #cb821c;
+  background-color: #f8b657;
   border-radius: 10px;
 }
 .progressing-right {
@@ -64,7 +64,10 @@ LIST TIMER COMPONENTS
   height: 100%;
   border-radius: 10px;
   padding: 2rem 0rem;
-  background-color: #cb821c;
+  color: #1c2022;
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: #f3a335;
 }
 
 /* /////////////////////////////////////////// */
@@ -123,11 +126,4 @@ List STOPWATCH COMPONENTS
 /* Couleur au survol de la thumb */
 .scroll-lap::-webkit-scrollbar-thumb:hover {
   background: #555;
-}
-/* #timer {
-  display: none;
-} */
-
-#stopwatch {
-  display: none;
 }

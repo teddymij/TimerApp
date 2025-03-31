@@ -118,11 +118,13 @@ button {
 .header-main {
   padding: 3.5rem 0;
 }
-
+.hidden {
+  display: none;
+}
 .footer {
   display: flex;
   justify-content: center;
-  padding: 2rem 0;
+  padding: 5rem 0;
   font-size: 1rem;
   color: #898888;
 }
