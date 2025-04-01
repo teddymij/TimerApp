@@ -16,7 +16,7 @@ const timers = [
   {
     id: 1,
     name: 'Workout',
-    duration: '20:00', // 20 minutes
+    duration: '20:08', // 20 minutes
     progress: 0, // Progression initiale
     isRunning: false,
     isPaused: false,
@@ -25,7 +25,7 @@ const timers = [
   {
     id: 2,
     name: 'Meditation',
-    duration: '15:00', // 15 minutes
+    duration: '15:26', // 15 minutes
     progress: 0,
     isRunning: false,
     isPaused: false,
@@ -34,7 +34,7 @@ const timers = [
   {
     id: 3,
     name: 'Pomodoro',
-    duration: '25:00', // 25 minutes
+    duration: '25:47', // 25 minutes
     progress: 0,
     isRunning: false,
     isPaused: false,
@@ -43,7 +43,7 @@ const timers = [
   {
     id: 4,
     name: 'Break',
-    duration: '5:00', // 5 minutes
+    duration: '00:05', // 5 minutes
     progress: 0,
     isRunning: false,
     isPaused: false,
@@ -53,6 +53,18 @@ const timers = [
 
 ///////////////////////////////////////
 // Functions
+// utility function
+const convertToSeconds = function (duration) {
+  const [minutes, seconds] = duration.split(':');
+  return minutes * 60 + seconds;
+};
+
+const reverseDisplay = function (query1, query2) {
+  // hide the query1 and show the query2
+  document.querySelector(query1).classList.add('hidden');
+  document.querySelector(query2).classList.remove('hidden');
+};
+
 // Display the current time
 const displayHours = function () {
   const date = new Date();
@@ -66,7 +78,7 @@ const displayHours = function () {
   labelCurrentTime.textContent = `${formattedTime}`;
 };
 
-// Display the timers
+// Display the timersb
 const displayTimers = function () {
   timers.forEach(timer => {
     const html = `
@@ -75,20 +87,23 @@ const displayTimers = function () {
                 <div class="progressing-left">
                   <div class="flexbox-2">
                     <h2 class="timer-name">${timer.name}</h2>
-                    <h2 class="timer-duration">${timer.duration}</h2>
+                    <h2 class="timer-duration" id = "timer-duration-${timer.id}">${timer.duration}</h2>
                   </div>
                   <div class="progress-container">
                     <div class="progress-bar" id="progress-bar-${timer.id}"></div>
                   </div>
                 </div>
                 <div class="progressing-right">
-                  <button class="btn btn-start">
+                  <button class="btn btn-start" id="btn-start-${timer.id}">
                     <img src="img/icon-play.svg" alt="Close-button" />
                   </button>
-                  <button class="btn btn-stop">
-                    <img src="img/icon-stop.svg" alt="Close-button" />
+                  <button class="btn btn-pause hidden" id="btn-pause-${timer.id}" >
+                    <img src="img/icon-pause.svg" alt="Close-button" />
                   </button>
-                  <button class="btn btn-close" id="delete-timer-1">
+                  <button class="btn btn-stop" id="btn-stop-${timer.id}">
+                    <img src="img/icon-stop.svg" alt="stop-button" />
+                  </button>
+                  <button class="btn btn-close" id="btn-close-${timer.id}"">
                     <img src="img/icon-close.svg" alt="Close-button" />
                   </button>
                 </div>
@@ -99,7 +114,108 @@ const displayTimers = function () {
     // Find the progress bar and set it to 100%
     const progressBar = document.querySelector(`#progress-bar-${timer.id}`);
     progressBar.style.width = `100%`; // set the progress bar to 100%
+    // btn start timer
+    document
+      .querySelector(`#btn-start-${timer.id}`)
+      .addEventListener('click', function () {
+        playTimer(timer);
+      });
+    // btn pause timer
+    document
+      .querySelector(`#btn-pause-${timer.id}`)
+      .addEventListener('click', function () {
+        pauseTimer(timer);
+      });
+    // btn stop timer
+    document
+      .querySelector(`#btn-stop-${timer.id}`)
+      .addEventListener('click', function () {
+        stopTimer(timer);
+      });
+    // btn close timer
+    document
+      .querySelector(`#btn-close-${timer.id}`)
+      .addEventListener('click', function () {
+        deleteTimer(timer);
+      });
   });
+};
+
+// Play the timer
+const playTimer = function (timer) {
+  // Convert duration to seconds
+  const initialDurationInSeconds = convertToSeconds(timer.duration);
+  let durationMin = initialDurationInSeconds;
+  timer.isRunning = true;
+  timer.isPaused = false;
+  timer.isStopped = false;
+
+  const progressBar = document.querySelector(`#progress-bar-${timer.id}`);
+  const labelDuration = document.querySelector(`#timer-duration-${timer.id}`);
+  let lastTickTime = Date.now();
+  console.log(lastTickTime);
+  let animationFrameId;
+
+  // Function to update the timer display (minutes and seconds)
+  const updateTimerDisplay = () => {
+    const min = String(Math.trunc(durationMin / 60)).padStart(2, '0');
+    const sec = String(Math.trunc(durationMin % 60)).padStart(2, '0');
+    labelDuration.textContent = `${min}:${sec}`;
+  };
+
+  // Function to update the progress bar smoothly
+  const animate = () => {
+    const currentTime = Date.now();
+    const elapsedTime = (currentTime - lastTickTime) / 1000; // in seconds  or second ++
+    // Calculate current percentage based on elapsed time
+    const percentage =
+      ((durationMin - elapsedTime) / initialDurationInSeconds) * 100;
+    if (percentage >= 0) {
+      progressBar.style.width = `${percentage}%`;
+    }
+    // Continue animation until next tick
+    if (durationMin > 0) {
+      animationFrameId = requestAnimationFrame(animate);
+    }
+  };
+
+  // Main tick function that runs every second
+  const tick = function () {
+    // When 0 seconds, stop timer and animation
+    if (durationMin <= 0) {
+      clearInterval(timer.timerInterval);
+      cancelAnimationFrame(animationFrameId);
+      progressBar.style.width = '0%';
+      reverseDisplay(`#btn-pause-${timer.id}`, `#btn-start-${timer.id}`);
+      return;
+    }
+    // Update timer display
+    updateTimerDisplay();
+    // Reset animation frame
+    cancelAnimationFrame(animationFrameId);
+    lastTickTime = Date.now();
+    animationFrameId = requestAnimationFrame(animate);
+    // Decrease duration for next tick
+    durationMin--;
+  };
+
+  // Start initial tick
+  tick();
+  timer.timerInterval = setInterval(tick, 1000);
+  // hide the start button and show the pause button
+  reverseDisplay(`#btn-start-${timer.id}`, `#btn-pause-${timer.id}`);
+};
+// Pause the timer
+const pauseTimer = function (timer) {
+  console.log('pauseTimer');
+};
+// stop the timer
+const stopTimer = function (timer) {
+  console.log('stopTimer');
+};
+// delete the timer
+const deleteTimer = function (timer) {
+  console.log('deleteTimer');
 };
 
 displayHours();
