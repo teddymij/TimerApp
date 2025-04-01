@@ -16,7 +16,7 @@ const timers = [
   {
     id: 1,
     name: 'Workout',
-    duration: '20:08', // 20 minutes
+    duration: '01:08', // 20 minutes
     progress: 0, // Progression initiale
     isRunning: false,
     isPaused: false,
@@ -25,7 +25,7 @@ const timers = [
   {
     id: 2,
     name: 'Meditation',
-    duration: '15:26', // 15 minutes
+    duration: '02:26', // 15 minutes
     progress: 0,
     isRunning: false,
     isPaused: false,
@@ -34,7 +34,7 @@ const timers = [
   {
     id: 3,
     name: 'Pomodoro',
-    duration: '25:47', // 25 minutes
+    duration: '01:47', // 25 minutes
     progress: 0,
     isRunning: false,
     isPaused: false,
@@ -55,7 +55,7 @@ const timers = [
 // Functions
 // utility function
 const convertToSeconds = function (duration) {
-  const [minutes, seconds] = duration.split(':');
+  const [minutes, seconds] = duration.split(':').map(Number); // map to convert the string to number
   return minutes * 60 + seconds;
 };
 
@@ -78,8 +78,9 @@ const displayHours = function () {
   labelCurrentTime.textContent = `${formattedTime}`;
 };
 
-// Display the timersb
+// Display the timer
 const displayTimers = function () {
+  containerListTimers.innerHTML = '';
   timers.forEach(timer => {
     const html = `
       <li class="timer" id="${timer.id}">
@@ -115,6 +116,7 @@ const displayTimers = function () {
     const progressBar = document.querySelector(`#progress-bar-${timer.id}`);
     progressBar.style.width = `100%`; // set the progress bar to 100%
     // btn start timer
+
     document
       .querySelector(`#btn-start-${timer.id}`)
       .addEventListener('click', function () {
@@ -143,8 +145,9 @@ const displayTimers = function () {
 
 // Play the timer
 const playTimer = function (timer) {
-  // Convert duration to seconds
-  const initialDurationInSeconds = convertToSeconds(timer.duration);
+  timer.currentDuration = timer.duration; // set the current duration to the duration
+  // Convert duration to seconds+
+  const initialDurationInSeconds = convertToSeconds(timer.currentDuration);
   let durationMin = initialDurationInSeconds;
   timer.isRunning = true;
   timer.isPaused = false;
@@ -153,8 +156,6 @@ const playTimer = function (timer) {
   const progressBar = document.querySelector(`#progress-bar-${timer.id}`);
   const labelDuration = document.querySelector(`#timer-duration-${timer.id}`);
   let lastTickTime = Date.now();
-  console.log(lastTickTime);
-  let animationFrameId;
 
   // Function to update the timer display (minutes and seconds)
   const updateTimerDisplay = () => {
@@ -175,16 +176,16 @@ const playTimer = function (timer) {
     }
     // Continue animation until next tick
     if (durationMin > 0) {
-      animationFrameId = requestAnimationFrame(animate);
+      timer.animationFrameId = requestAnimationFrame(animate);
     }
   };
 
   // Main tick function that runs every second
   const tick = function () {
     // When 0 seconds, stop timer and animation
-    if (durationMin <= 0) {
+    if (durationMin < 0) {
       clearInterval(timer.timerInterval);
-      cancelAnimationFrame(animationFrameId);
+      cancelAnimationFrame(timer.animationFrameId);
       progressBar.style.width = '0%';
       reverseDisplay(`#btn-pause-${timer.id}`, `#btn-start-${timer.id}`);
       return;
@@ -192,9 +193,9 @@ const playTimer = function (timer) {
     // Update timer display
     updateTimerDisplay();
     // Reset animation frame
-    cancelAnimationFrame(animationFrameId);
+    cancelAnimationFrame(timer.animationFrameId);
     lastTickTime = Date.now();
-    animationFrameId = requestAnimationFrame(animate);
+    timer.animationFrameId = requestAnimationFrame(animate);
     // Decrease duration for next tick
     durationMin--;
   };
@@ -207,15 +208,42 @@ const playTimer = function (timer) {
 };
 // Pause the timer
 const pauseTimer = function (timer) {
-  console.log('pauseTimer');
+  // Update the timer status
+  timer.isRunning = false;
+  timer.isPaused = true;
+  // Pause the timer
+  clearInterval(timer.timerInterval);
+  reverseDisplay(`#btn-pause-${timer.id}`, `#btn-start-${timer.id}`);
+  cancelAnimationFrame(timer.animationFrameId);
+  // Update the timer display
+  const labelDuration = document.querySelector(`#timer-duration-${timer.id}`);
+  timer.currentDuration = labelDuration.textContent;
 };
 // stop the timer
 const stopTimer = function (timer) {
-  console.log('stopTimer');
+  // Update the timer status
+  timer.isRunning = false;
+  timer.isPaused = false;
+  timer.isStopped = true;
+  // Stop the timer
+  clearInterval(timer.timerInterval);
+  cancelAnimationFrame(timer.animationFrameId);
+  // Update the timer display
+  const labelDuration = document.querySelector(`#timer-duration-${timer.id}`);
+  labelDuration.textContent = timer.duration;
+  timer.currentDuration = timer.duration;
+  // Update the progress bar
+  const progressBar = document.querySelector(`#progress-bar-${timer.id}`);
+  progressBar.style.width = '100%';
+  reverseDisplay(`#btn-pause-${timer.id}`, `#btn-start-${timer.id}`);
 };
 // delete the timer
 const deleteTimer = function (timer) {
-  console.log('deleteTimer');
+  const indexToRemove = timers.findIndex(index => index.id === timer.id);
+  timers.splice(indexToRemove, 1);
+  clearInterval(timer.timerInterval);
+  displayTimers();
+  // Update the progress bar
 };
 
 displayHours();
