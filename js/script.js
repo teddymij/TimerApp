@@ -3,13 +3,20 @@
 // UI Element
 const btntabTimer = document.querySelector('.btn-timer');
 const btntabStopwatch = document.querySelector('.btn-stopwatch');
+const btnStopwatchResume = document.querySelector('.stopwatch-btn-resume');
+const btnStopwatchPause = document.querySelector('.stopwatch-btn-pause');
+const btnStopwatchRound = document.querySelector('.stopwatch-btn-round');
+const btnStopwatchReset = document.querySelector('.stopwatch-btn-reset');
 
 const labelCurrentTime = document.querySelector('.current-time');
+const labelCurrentStopwatch = document.querySelector('.current-stopwatch');
+
 const containerTimer = document.querySelector('#timer');
 const containerStopwatch = document.querySelector('#stopwatch');
 
 const containerListTimers = document.querySelector('#list-timers');
 const containerListStopwatch = document.querySelector('#list-stopwatch');
+
 // /////////////////////////
 // Variable
 const timers = [
@@ -51,6 +58,7 @@ const timers = [
   },
 ]; // array of timers objects
 
+const laps = [];
 ///////////////////////////////////////
 // Functions
 // utility function
@@ -64,7 +72,7 @@ const reverseDisplay = function (query1, query2) {
   document.querySelector(query1).classList.add('hidden');
   document.querySelector(query2).classList.remove('hidden');
 };
-
+// *************************
 // Display the current time
 const displayHours = function () {
   const date = new Date();
@@ -142,6 +150,8 @@ const displayTimers = function () {
       });
   });
 };
+// *************************
+// Logical function timer
 
 // Play the timer
 const playTimer = function (timer) {
@@ -246,12 +256,85 @@ const deleteTimer = function (timer) {
   // Update the progress bar
 };
 
+// :::::::::::::::::::::
+// Display the laps
+const displayLaps = function () {
+  containerListStopwatch.innerHTML = '';
+  laps.forEach(lap => {
+    const html = `
+    <li class="lap flexbox-2" id="${lap.id}">
+      <h2 class="lap-name">${lap.name}</h2>
+      <h2 class="lap-time">${lap.duration}</h2>
+    </li>
+    `;
+    containerListStopwatch.insertAdjacentHTML('afterbegin', html);
+  });
+};
+
+// Logical function stopwatch
+// Start stopwatch
+let startTime;
+let timerInterval;
+let currentElapsed = 0;
+let elapsedTime;
+const startStopwatch = function () {
+  startTime = new Date(); //save the startTime (0)
+  timerInterval = setInterval(updateStopwatch, 1000);
+  reverseDisplay('.stopwatch-btn-resume', '.stopwatch-btn-pause');
+  reverseDisplay('.stopwatch-btn-reset', '.stopwatch-btn-round');
+};
+// Stop stopwatch
+const stopStopwatch = function () {
+  clearInterval(timerInterval);
+  reverseDisplay('.stopwatch-btn-pause', '.stopwatch-btn-resume');
+  reverseDisplay('.stopwatch-btn-round', '.stopwatch-btn-reset');
+  currentElapsed = elapsedTime;
+};
+// Round stopwatch
+const roundStopwatch = function () {
+  const newLap = {
+    id: 1,
+    name: `Lap ${laps.length + 1}`,
+    duration: labelCurrentStopwatch.textContent, // 20 minutes
+  };
+  laps.push(newLap);
+  displayLaps();
+};
+const updateStopwatch = function () {
+  const currentTime = new Date(); //get the current time (secondes++)
+
+  elapsedTime = Math.floor((currentTime - startTime) / 1000) + currentElapsed;
+
+  const seconds = String(elapsedTime % 60).padStart(2, '0');
+  const minutes = String(Math.floor(elapsedTime / 60)).padStart(2, '0');
+  const hours = String(Math.floor(elapsedTime / 3600)).padStart(2, '0');
+
+  labelCurrentStopwatch.textContent = `${hours}:${minutes}:${seconds}`;
+};
+// *************************
+//Event stopwatch
+// Run stopwatch
+btnStopwatchResume.addEventListener('click', function () {
+  startStopwatch();
+});
+// add round
+btnStopwatchRound.addEventListener('click', function () {
+  roundStopwatch();
+});
+
+// reset
+
+// pause
+btnStopwatchPause.addEventListener('click', function () {
+  stopStopwatch();
+});
+// resume
 displayHours();
-let timerInterval = setInterval(displayHours, 1000);
+setInterval(displayHours, 1000);
 displayTimers();
 
 ///////////////////////////////////////
-// Event handlers
+// GENERAL Event handlers
 // navtab timer btn
 btntabTimer.addEventListener('click', function () {
   // show timer container and hide stopwatch container

@@ -92,6 +92,9 @@ BTN STOPWATCH COMPONENTS
   justify-content: center;
   padding: 3rem 0 7.5rem 0;
 }
+.stopwatch {
+  width: 150px;
+}
 .stopwatch-btn-pause,
 .stopwatch-btn-resume {
   background-color: #cb821c;
@@ -103,8 +106,12 @@ List STOPWATCH COMPONENTS
 .lap {
   padding: 0 2rem;
 }
+.lap-name,
+.lap-time {
+  font-size: 2.4rem;
+}
 .scroll-lap {
-  max-height: 500px;
+  max-height: 390px;
   overflow-y: auto;
 }
 /* Largeur de la scrollbar */
