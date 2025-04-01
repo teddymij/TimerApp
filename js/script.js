@@ -47,15 +47,15 @@ const timers = [
     isPaused: false,
     isStopped: false,
   },
-  {
-    id: 4,
-    name: 'Break',
-    duration: '00:05', // 5 minutes
-    progress: 0,
-    isRunning: false,
-    isPaused: false,
-    isStopped: false,
-  },
+  // {
+  //   id: 4,
+  //   name: 'Break',
+  //   duration: '00:05', // 5 minutes
+  //   progress: 0,
+  //   isRunning: false,
+  //   isPaused: false,
+  //   isStopped: false,
+  // },
 ]; // array of timers objects
 
 const laps = [];
@@ -155,13 +155,14 @@ const displayTimers = function () {
 
 // Play the timer
 const playTimer = function (timer) {
-  timer.currentDuration = timer.duration; // set the current duration to the duration
-  // Convert duration to seconds+
-  const initialDurationInSeconds = convertToSeconds(timer.currentDuration);
-  let durationMin = initialDurationInSeconds;
+  console.log(timer.isPaused);
+  if (!timer.isPaused) timer.currentDuration = timer.duration; // set the current duration to the duration
   timer.isRunning = true;
   timer.isPaused = false;
   timer.isStopped = false;
+  // Convert duration to seconds+
+  const initialDurationInSeconds = convertToSeconds(timer.currentDuration);
+  let durationMin = initialDurationInSeconds;
 
   const progressBar = document.querySelector(`#progress-bar-${timer.id}`);
   const labelDuration = document.querySelector(`#timer-duration-${timer.id}`);
@@ -311,6 +312,15 @@ const updateStopwatch = function () {
 
   labelCurrentStopwatch.textContent = `${hours}:${minutes}:${seconds}`;
 };
+
+const resetStopwatch = function () {
+  clearInterval(timerInterval);
+  reverseDisplay('.stopwatch-btn-pause', '.stopwatch-btn-resume');
+  reverseDisplay('.stopwatch-btn-round', '.stopwatch-btn-reset');
+  currentElapsed = 0;
+  elapsedTime = 0;
+  labelCurrentStopwatch.textContent = '00:00:00';
+};
 // *************************
 //Event stopwatch
 // Run stopwatch
@@ -323,6 +333,9 @@ btnStopwatchRound.addEventListener('click', function () {
 });
 
 // reset
+btnStopwatchReset.addEventListener('click', function () {
+  resetStopwatch();
+});
 
 // pause
 btnStopwatchPause.addEventListener('click', function () {

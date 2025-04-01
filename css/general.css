@@ -31,7 +31,6 @@ Paragraph default: 1.6
 #cd5832
 #f8b657
 #cb821c
-#375650
 
 - Shades: 
 #f6f6f3
@@ -50,6 +49,28 @@ Medium: 30px
 2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
 */
 
+:root {
+  --color-primary1: #444e57;
+  --color-primary2: #2d343b;
+  --color-primary3: #1c2022;
+  --color-tints--red: #cd5832;
+  --color-tints--yellow: #f8b657;
+  --color-tints--yellowdark: #cb821c;
+  --color-shades--100: #f6f6f3;
+  --color-shades--300: #d4d4d4;
+  --color-shades--500: #898888;
+
+  --border-radius-small: 10px;
+  --border-radius-medium: 20px;
+
+  --header-h0: 7.2rem;
+  --header-h1: 3.2rem;
+  --header-h2: 1.6rem;
+  --header-h3: 2rem;
+  --header-h4: 1.8rem;
+  --header-h5: 1.6rem;
+  --header-h6: 1.4rem;
+}
 * {
   padding: 0;
   margin: 0;
@@ -72,6 +93,14 @@ body {
   background-color: #1c2022;
 }
 
+input {
+  padding: 1rem 3.2rem;
+  border-radius: 10px;
+  font
+  border: none;
+  background-color: var(--color-primary1);
+  color: #f6f6f3;
+}
 /* 
 GENERAL COMPONENTS
 */
@@ -103,6 +132,14 @@ button {
   column-gap: 2rem;
   row-gap: 9.6rem;
   grid-template-columns: 3fr 1fr;
+}
+.grid--2-col-modal-duration {
+  gap: 0.2rem;
+}
+.grid--2-col-modal {
+  display: grid;
+  gap: 1.2rem;
+  grid-template-columns: 1fr 1fr;
 }
 
 .grid--row {

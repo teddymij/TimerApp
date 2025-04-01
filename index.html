@@ -91,7 +91,7 @@
             </li>
           </nav>
         </section>
-        <section id="stopwatch" class="">
+        <section id="stopwatch" class="hidden">
           <h1 class="current-stopwatch">00:00:00</h1>
           <div class="flexbox--stopwatch">
             <button class="stopwatch stopwatch-btn-round hidden">
@@ -113,5 +113,22 @@
     <footer class="footer">
       <p>© 2025 Teddy. All rights reserved.</p>
     </footer>
+    <div class="modal">
+      <h2 class="header__modal">Add timer</h2>
+      <form class="modal__form">
+        <label>Name</label>
+        <input type="text" />
+        <label>Duration</label>
+        <div class="grid--2-col-modal grid--2-col-modal-duration">
+          <input type="text" />
+          <input type="text" />
+        </div>
+        <div class="grid--2-col-modal">
+          <button class="btn--cancel-modal">Cancel</button>
+          <button class="btn--add-modal">Add</button>
+        </div>
+      </form>
+    </div>
+    <div class="overlay"></div>
   </body>
 </html>
