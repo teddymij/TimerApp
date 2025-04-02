@@ -441,10 +441,7 @@ const playBreakEnd = function (timer) {
         <h2 class="timer-name">Break end</h2>
         <div class="progressing-right">
           <button class="btn btn-reset" id="btn-reset-breakend-${timer.id}">
-            <img src="img/icon-reset.svg" alt="Reset-button" />
-          </button>
-          <button class="btn btn-close" id="btn-close-breakend-${timer.id}">
-            <img src="img/icon-close.svg" alt="Close-button" />
+            <img src="img/icon-close.svg" alt="Reset-button" />
           </button>
         </div>
       </div>
@@ -454,8 +451,6 @@ const playBreakEnd = function (timer) {
     .addEventListener('click', function () {
       displayTimers(true, timer);
     });
-
-  // document.querySelector(`#btn-close-breakend-${timer.id}`)
 };
 let btnAddModal = document.querySelector('.btn-add-timer');
 
