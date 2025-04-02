@@ -210,7 +210,15 @@ HEADER TAB COMPONENTS
   color: #f8b657;
 }
 .btn-stopwatch {
-  background-color: #1c2022;
   color: #d4d4d4;
   transform: translateX(-2rem);
+}
+.btn-tab-active {
+  background-color: #2d343b;
+  color: var(--color-tints--yellow);
+  z-index: 1000;
+}
+.btn-tab-inactive {
+  background-color: var(--color-primary3);
+  color: var(--color-shades--500);
 }

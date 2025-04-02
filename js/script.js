@@ -27,13 +27,15 @@ const inputNameTimer = document.querySelector('#input-timer');
 const inputDurationHours = document.querySelector('#input-duration-h');
 const inputDurationMin = document.querySelector('#input-duration-min');
 
+const breakDuration = '00:01';
+
 // /////////////////////////
 // Variable
 const timers = [
   {
     id: 1,
     name: 'Workout',
-    duration: '00:03', // 20 minutes
+    duration: '00:01', // 20 minutes
     progress: 0, // Progression initiale
     isRunning: false,
     isPaused: false,
@@ -42,7 +44,7 @@ const timers = [
   {
     id: 2,
     name: 'Meditation',
-    duration: '02:26', // 15 minutes
+    duration: '00:01', // 15 minutes
     progress: 0,
     isRunning: false,
     isPaused: false,
@@ -51,7 +53,7 @@ const timers = [
   {
     id: 3,
     name: 'Pomodoro',
-    duration: '01:47', // 25 minutes
+    duration: '00:01', // 25 minutes
     progress: 0,
     isRunning: false,
     isPaused: false,
@@ -68,7 +70,7 @@ const timers = [
   // },
 ]; // array of timers objects
 
-const laps = [];
+let laps = [];
 ///////////////////////////////////////
 // Functions
 // utility function
@@ -105,11 +107,72 @@ const displayHours = function () {
 };
 
 // Display the timer
-const displayTimers = function () {
-  containerListTimers.innerHTML = '';
-  timers.forEach(timer => {
-    const html = `
-      <li class="timer" id="${timer.id}">
+const displayTimers = function (reset, timerReset) {
+  if (reset && timerReset) {
+    document.querySelector(`#timer-${timerReset.id}`).innerHTML = `
+      <li class="timer" id="timer-${timerReset.id}">
+              <div class="grid--2-col">
+                <div class="progressing-left">
+                  <div class="flexbox-2">
+                    <h2 class="timer-name">${timerReset.name}</h2>
+                    <h2 class="timer-duration" id = "timer-duration-${timerReset.id}">${timerReset.duration}</h2>
+                  </div>
+                  <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar-${timerReset.id}"></div>
+                  </div>
+                </div>
+                <div class="progressing-right">
+                  <button class="btn btn-start" id="btn-start-${timerReset.id}">
+                    <img src="img/icon-play.svg" alt="Close-button" />
+                  </button>
+                  <button class="btn btn-pause hidden" id="btn-pause-${timerReset.id}" >
+                    <img src="img/icon-pause.svg" alt="Close-button" />
+                  </button>
+                  <button class="btn btn-stop" id="btn-stop-${timerReset.id}">
+                    <img src="img/icon-stop.svg" alt="stop-button" />
+                  </button>
+                  <button class="btn btn-close" id="btn-close-${timerReset.id}"">
+                    <img src="img/icon-close.svg" alt="Close-button" />
+                  </button>
+                </div>
+              </div>
+            </li>
+    `;
+    // Find the progress bar and set it to 100%
+    const progressBar = document.querySelector(
+      `#progress-bar-${timerReset.id}`
+    );
+    progressBar.style.width = `100%`; // set the progress bar to 100%
+    // btn start timer
+
+    document
+      .querySelector(`#btn-start-${timerReset.id}`)
+      .addEventListener('click', function () {
+        playTimer(timerReset);
+      });
+    // btn pause timer
+    document
+      .querySelector(`#btn-pause-${timerReset.id}`)
+      .addEventListener('click', function () {
+        pauseTimer(timerReset);
+      });
+    // btn stop timer
+    document
+      .querySelector(`#btn-stop-${timerReset.id}`)
+      .addEventListener('click', function () {
+        stopTimer(timerReset);
+      });
+    // btn close timer
+    document
+      .querySelector(`#btn-close-${timerReset.id}`)
+      .addEventListener('click', function () {
+        deleteTimer(timerReset);
+      });
+  } else {
+    containerListTimers.innerHTML = '';
+    timers.forEach(timer => {
+      const html = `
+      <li class="timer" id="timer-${timer.id}">
               <div class="grid--2-col">
                 <div class="progressing-left">
                   <div class="flexbox-2">
@@ -138,47 +201,48 @@ const displayTimers = function () {
             </li>
     `;
 
-    containerListTimers.insertAdjacentHTML('afterbegin', html);
-    // Find the progress bar and set it to 100%
-    const progressBar = document.querySelector(`#progress-bar-${timer.id}`);
-    progressBar.style.width = `100%`; // set the progress bar to 100%
-    // btn start timer
+      containerListTimers.insertAdjacentHTML('afterbegin', html);
+      // Find the progress bar and set it to 100%
+      const progressBar = document.querySelector(`#progress-bar-${timer.id}`);
+      progressBar.style.width = `100%`; // set the progress bar to 100%
+      // btn start timer
 
-    document
-      .querySelector(`#btn-start-${timer.id}`)
-      .addEventListener('click', function () {
-        playTimer(timer);
-      });
-    // btn pause timer
-    document
-      .querySelector(`#btn-pause-${timer.id}`)
-      .addEventListener('click', function () {
-        pauseTimer(timer);
-      });
-    // btn stop timer
-    document
-      .querySelector(`#btn-stop-${timer.id}`)
-      .addEventListener('click', function () {
-        stopTimer(timer);
-      });
-    // btn close timer
-    document
-      .querySelector(`#btn-close-${timer.id}`)
-      .addEventListener('click', function () {
-        deleteTimer(timer);
-      });
-  });
-  timers.length < 4
-    ? btnAddModal.classList.remove('hidden')
-    : btnAddModal.classList.add('hidden');
+      document
+        .querySelector(`#btn-start-${timer.id}`)
+        .addEventListener('click', function () {
+          playTimer(timer);
+        });
+      // btn pause timer
+      document
+        .querySelector(`#btn-pause-${timer.id}`)
+        .addEventListener('click', function () {
+          pauseTimer(timer);
+        });
+      // btn stop timer
+      document
+        .querySelector(`#btn-stop-${timer.id}`)
+        .addEventListener('click', function () {
+          stopTimer(timer);
+        });
+      // btn close timer
+      document
+        .querySelector(`#btn-close-${timer.id}`)
+        .addEventListener('click', function () {
+          deleteTimer(timer);
+        });
+    });
+    timers.length < 4
+      ? btnAddModal.classList.remove('hidden')
+      : btnAddModal.classList.add('hidden');
+  }
 };
 // *************************
 // Logical function timer
 
 // Play the timer
 const playTimer = function (timer) {
-  console.log(timer.isPaused);
   if (!timer.isPaused) timer.currentDuration = timer.duration; // set the current duration to the duration
+
   timer.isRunning = true;
   timer.isPaused = false;
   timer.isStopped = false;
@@ -221,6 +285,8 @@ const playTimer = function (timer) {
       cancelAnimationFrame(timer.animationFrameId);
       progressBar.style.width = '0%';
       reverseDisplay(`#btn-pause-${timer.id}`, `#btn-start-${timer.id}`);
+      playTimeUp(timer);
+
       return;
     }
     // Update timer display
@@ -275,7 +341,7 @@ const deleteTimer = function (timer) {
   const indexToRemove = timers.findIndex(index => index.id === timer.id);
   timers.splice(indexToRemove, 1);
   clearInterval(timer.timerInterval);
-  displayTimers();
+  displayTimers(false, timer);
   // Update the progress bar
 };
 
@@ -300,10 +366,97 @@ const addTimer = function (e) {
       isStopped: false,
     });
     closeModal();
-    displayTimers();
+    displayTimers(false, timer);
   } else console.log('error');
 };
+const playTimeUp = function (timer) {
+  document.querySelector(`#timer-${timer.id}`).innerHTML = `
+    <li class="timer" id="timer-timeup-${timer.id}">
+      <div class="grid--2-col grid--timeup">
+        <h2 class="timer-name">Time's up !</h2>
+        <button class="nav-tab-btn btn-red" id="btn-timeup-${timer.id}">Start Break</button>
+      </div>
+    </li>`;
+  // Load the sound effect for alarm
+  const audioEnd = new Audio('audio/chime-fast-twinkle.mp3');
+  audioEnd.play();
+  audioEnd.loop = true;
+  audioEnd.volume = 0.5;
+  document
+    .querySelector(`#btn-timeup-${timer.id}`)
+    .addEventListener('click', function () {
+      audioEnd.pause();
+      playBreak(timer);
+    });
+};
 
+const playBreak = function (timer) {
+  document.querySelector(`#timer-${timer.id}`).innerHTML = `
+    <li class="timer" id="timer-break-${timer.id}">
+      <div class="grid--2-col grid--break">
+        <div class="break-left">
+          <div class="flexbox-2 breakstate">
+            <h2 class="timer-name">Break</h2>
+            <h2 class="timer-duration" id="timer-duration-break-${timer.id}">${breakDuration}</h2>
+          </div>
+        </div>
+        <div class="break-progressing-right">
+          <div class="break-progressing-bar"></div>
+        </div>
+      </div>
+    </li> `;
+  const labelDurationBreak = document.querySelector(
+    `#timer-duration-break-${timer.id}`
+  );
+
+  let durationMin = convertToSeconds(breakDuration);
+  // Function to update the timer display (minutes and seconds)
+  const updateTimerDisplay = () => {
+    const min = String(Math.trunc(durationMin / 60)).padStart(2, '0');
+    const sec = String(Math.trunc(durationMin % 60)).padStart(2, '0');
+    labelDurationBreak.textContent = `${min}:${sec}`;
+  };
+  // Main tick function that runs every second
+  const tick = function () {
+    // When 0 seconds, stop timer and animation
+    if (durationMin < 0) {
+      clearInterval(timer.timerIntervalBreak);
+      playBreakEnd(timer);
+      return;
+    }
+    // Update timer display
+    updateTimerDisplay();
+    // Decrease duration for next tick
+    durationMin--;
+  };
+
+  // Start initial tick
+  tick();
+  timer.timerIntervalBreak = setInterval(tick, 1000);
+};
+const playBreakEnd = function (timer) {
+  document.querySelector(`#timer-${timer.id}`).innerHTML = `
+    <li class="timer" id="#timer-breakend-${timer.id}">
+      <div class="grid--2-col grid--breakend">
+        <h2 class="timer-name">Break end</h2>
+        <div class="progressing-right">
+          <button class="btn btn-reset" id="btn-reset-breakend-${timer.id}">
+            <img src="img/icon-reset.svg" alt="Reset-button" />
+          </button>
+          <button class="btn btn-close" id="btn-close-breakend-${timer.id}">
+            <img src="img/icon-close.svg" alt="Close-button" />
+          </button>
+        </div>
+      </div>
+    </li>`;
+  document
+    .querySelector(`#btn-reset-breakend-${timer.id}`)
+    .addEventListener('click', function () {
+      displayTimers(true, timer);
+    });
+
+  // document.querySelector(`#btn-close-breakend-${timer.id}`)
+};
 let btnAddModal = document.querySelector('.btn-add-timer');
 
 // EventListener add modal
@@ -378,6 +531,8 @@ const resetStopwatch = function () {
   currentElapsed = 0;
   elapsedTime = 0;
   labelCurrentStopwatch.textContent = '00:00:00';
+  containerListStopwatch.innerHTML = '';
+  laps = [];
 };
 // *************************
 //Event stopwatch
@@ -402,22 +557,28 @@ btnStopwatchPause.addEventListener('click', function () {
 // resume
 displayHours();
 setInterval(displayHours, 1000);
-displayTimers();
+displayTimers(false, timer);
 
 ///////////////////////////////////////
 // GENERAL Event handlers
 // navtab timer btn
 btntabTimer.addEventListener('click', function () {
   // show timer container and hide stopwatch container
-  containerTimer.classList.remove('hidden');
-  containerStopwatch.classList.add('hidden');
+  reverseDisplay('#stopwatch', '#timer');
   timerInterval = setInterval(displayHours, 1000);
+  btntabTimer.classList.add('btn-tab-active');
+  btntabTimer.classList.remove('btn-tab-inactive');
+  btntabStopwatch.classList.remove('btn-tab-active');
+  btntabStopwatch.classList.add('btn-tab-inactive');
 });
 // navtab stopwatch btn
 btntabStopwatch.addEventListener('click', function () {
   // show stopwatch container and hide timer container
-  containerStopwatch.classList.remove('hidden');
-  containerTimer.classList.add('hidden');
+  reverseDisplay('#timer', '#stopwatch');
   // clear the timer interval
   clearInterval(timerInterval);
+  btntabTimer.classList.remove('btn-tab-active');
+  btntabTimer.classList.add('btn-tab-inactive');
+  btntabStopwatch.classList.add('btn-tab-active');
+  btntabStopwatch.classList.remove('btn-tab-inactive');
 });
