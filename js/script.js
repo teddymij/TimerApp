@@ -17,13 +17,23 @@ const containerStopwatch = document.querySelector('#stopwatch');
 const containerListTimers = document.querySelector('#list-timers');
 const containerListStopwatch = document.querySelector('#list-stopwatch');
 
+const modal = document.querySelector('.modal');
+const overlay = document.querySelector('.overlay');
+
+const btnAddTimer = document.querySelector('.btn--add-modal');
+const btnCancelTimer = document.querySelector('.btn--cancel-modal');
+
+const inputNameTimer = document.querySelector('#input-timer');
+const inputDurationHours = document.querySelector('#input-duration-h');
+const inputDurationMin = document.querySelector('#input-duration-min');
+
 // /////////////////////////
 // Variable
 const timers = [
   {
     id: 1,
     name: 'Workout',
-    duration: '01:08', // 20 minutes
+    duration: '00:03', // 20 minutes
     progress: 0, // Progression initiale
     isRunning: false,
     isPaused: false,
@@ -72,6 +82,14 @@ const reverseDisplay = function (query1, query2) {
   document.querySelector(query1).classList.add('hidden');
   document.querySelector(query2).classList.remove('hidden');
 };
+const openModal = function () {
+  modal.classList.remove('hidden');
+  overlay.classList.remove('hidden');
+};
+const closeModal = function () {
+  modal.classList.add('hidden');
+  overlay.classList.add('hidden');
+};
 // *************************
 // Display the current time
 const displayHours = function () {
@@ -119,6 +137,7 @@ const displayTimers = function () {
               </div>
             </li>
     `;
+
     containerListTimers.insertAdjacentHTML('afterbegin', html);
     // Find the progress bar and set it to 100%
     const progressBar = document.querySelector(`#progress-bar-${timer.id}`);
@@ -149,6 +168,9 @@ const displayTimers = function () {
         deleteTimer(timer);
       });
   });
+  timers.length < 4
+    ? btnAddModal.classList.remove('hidden')
+    : btnAddModal.classList.add('hidden');
 };
 // *************************
 // Logical function timer
@@ -256,6 +278,42 @@ const deleteTimer = function (timer) {
   displayTimers();
   // Update the progress bar
 };
+
+// Add the timer
+const addTimer = function (e) {
+  e.preventDefault();
+  if (
+    inputNameTimer.value != '' &&
+    inputDurationHours.value != '' &&
+    inputDurationMin.value != ''
+  ) {
+    timers.push({
+      id: timers.length + 1,
+      name: inputNameTimer.value,
+      duration: `${inputDurationHours.value.padStart(
+        2,
+        '0'
+      )}:${inputDurationMin.value.padStart(2, '0')}`,
+      progress: 0,
+      isRunning: false,
+      isPaused: false,
+      isStopped: false,
+    });
+    closeModal();
+    displayTimers();
+  } else console.log('error');
+};
+
+let btnAddModal = document.querySelector('.btn-add-timer');
+
+// EventListener add modal
+btnAddModal.addEventListener('click', openModal);
+// EventListener add timer
+btnAddTimer.addEventListener('click', addTimer);
+// EventListener cancel timer
+btnCancelTimer.addEventListener('click', closeModal);
+// EventListener close click modal
+overlay.addEventListener('click', closeModal);
 
 // :::::::::::::::::::::
 // Display the laps

@@ -78,8 +78,8 @@ LIST TIMER COMPONENTS
   left: 50%;
   transform: translate(-50%, -50%);
   max-width: 60rem;
-  background-color: var(--color-primary2);
-  padding: 5rem 6rem;
+  background-color: var(--color-primary3);
+  padding: 5rem 3.5rem;
   box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.5);
   border-radius: var(--border-radius-small);
   z-index: 1000;
@@ -90,11 +90,39 @@ LIST TIMER COMPONENTS
   flex-direction: column;
   gap: 1.2rem;
 }
+.header__modal {
+  font-size: 3.5rem;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4rem;
+}
+.modal__label {
+  font-size: 2.4rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-shades--500);
+}
 .btn--cancel-modal {
   background-color: var(--color-primary1);
 }
 .btn--add-modal {
   background-color: var(--color-tints--yellowdark);
+}
+.btn--cancel-modal,
+.btn--add-modal {
+  padding: 1.5rem 0rem;
+  border-radius: var(--border-radius-small);
+  font-weight: 600;
+  font-size: 2.4rem;
+}
+.grid--2-col-modal-duration input {
+  width: 100%;
+}
+.grid--2-col-modal-duration input:first-child {
+  border-radius: var(--border-radius-small) 0 0 var(--border-radius-small);
+}
+.grid--2-col-modal-duration input:last-child {
+  border-radius: 0 var(--border-radius-small) var(--border-radius-small) 0;
 }
 .overlay {
   position: fixed;

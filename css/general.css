@@ -64,7 +64,7 @@ Medium: 30px
   --border-radius-medium: 20px;
 
   --header-h0: 7.2rem;
-  --header-h1: 3.2rem;
+  --header-h1: 2.4rem;
   --header-h2: 1.6rem;
   --header-h3: 2rem;
   --header-h4: 1.8rem;
@@ -96,10 +96,28 @@ body {
 input {
   padding: 1rem 3.2rem;
   border-radius: 10px;
-  font
   border: none;
-  background-color: var(--color-primary1);
+  background-color: var(--color-primary2);
   color: #f6f6f3;
+  font-size: var(--header-h1);
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+input:focus {
+  outline: none; /* Supprime le contour */
+  box-shadow: none; /* Au besoin, supprime également l’ombre */
+}
+
+/* 2A. Masquer les flèches (Chrome, Safari, Edge Chromium) */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* 2A. Masquer les flèches (Firefox) */
+input[type='number'] {
+  -moz-appearance: textfield;
 }
 /* 
 GENERAL COMPONENTS
@@ -133,13 +151,13 @@ button {
   row-gap: 9.6rem;
   grid-template-columns: 3fr 1fr;
 }
-.grid--2-col-modal-duration {
-  gap: 0.2rem;
-}
 .grid--2-col-modal {
   display: grid;
   gap: 1.2rem;
   grid-template-columns: 1fr 1fr;
+}
+.grid--2-col-modal-duration {
+  gap: 0.2rem;
 }
 
 .grid--row {
@@ -147,6 +165,7 @@ button {
   flex-direction: column;
   list-style: none;
   gap: 3.5rem;
+  margin-bottom: 3.5rem;
 }
 .flexbox-2 {
   display: flex;

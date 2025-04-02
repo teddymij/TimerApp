@@ -84,12 +84,12 @@
                 </div>
               </div>
             </li> -->
-            <li class="timer">
-              <button class="btn btn-add-timer" id="delete-timer-4">
-                Add Timer
-              </button>
-            </li>
           </nav>
+          <div class="add">
+            <button class="btn btn-add-timer" id="delete-timer-4">
+              Add Timer
+            </button>
+          </div>
         </section>
         <section id="stopwatch" class="hidden">
           <h1 class="current-stopwatch">00:00:00</h1>
@@ -113,15 +113,25 @@
     <footer class="footer">
       <p>© 2025 Teddy. All rights reserved.</p>
     </footer>
-    <div class="modal">
+    <div class="modal hidden">
       <h2 class="header__modal">Add timer</h2>
       <form class="modal__form">
-        <label>Name</label>
-        <input type="text" />
-        <label>Duration</label>
+        <label class="modal__label">Name</label>
+        <input type="text" id="input-timer" placeholder="Workout" required />
+        <label class="modal__label">Duration</label>
         <div class="grid--2-col-modal grid--2-col-modal-duration">
-          <input type="text" />
-          <input type="text" />
+          <input
+            type="number"
+            id="input-duration-h"
+            placeholder="hours"
+            required
+          />
+          <input
+            type="number"
+            id="input-duration-min"
+            placeholder="min"
+            required
+          />
         </div>
         <div class="grid--2-col-modal">
           <button class="btn--cancel-modal">Cancel</button>
@@ -129,6 +139,6 @@
         </div>
       </form>
     </div>
-    <div class="overlay"></div>
+    <div class="overlay hidden"></div>
   </body>
 </html>
