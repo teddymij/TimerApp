@@ -1,72 +1,126 @@
 /* /////////////////////////////////////////// */
 
 /* 
-CURRENT TIME COMPONENTS
+TIMER COMPONENT
 */
-.current-time {
+.timer__current-time,
+.stopwatch__current-time {
   display: flex;
   justify-content: center;
-  font-size: 7.2rem;
-  font-weight: 600;
+  font-size: var(--font-size-xxl);
+  font-weight: var(--font-weight-semibold);
   letter-spacing: 0.5px;
+}
+
+.timer__current-time {
   padding: 4rem 0 5rem 0;
 }
 
-/* 
-LIST TIMER COMPONENTS
-*/
-.grid--2-col {
-  background-color: #2d343b;
-  border-radius: var(--border-radius-small);
-  padding: 1.5rem 2rem;
+.stopwatch__current-time {
+  padding: 3.2rem 0 0 0;
 }
-.timer-name {
+
+/* 
+TIMER LIST COMPONENTS
+*/
+.timer__list,
+.stopwatch__laps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+  list-style: none;
+}
+
+.stopwatch__laps {
+  max-height: 390px;
+  overflow-y: auto;
+}
+
+.timer__item-content {
+  background-color: var(--color-primary2);
+  border-radius: var(--border-radius-small);
+  padding: var(--spacing-md) var(--spacing-lg);
+  display: grid;
+  column-gap: var(--spacing-lg);
+  row-gap: 9.6rem;
+  grid-template-columns: 3fr 1fr;
+}
+
+.timer__name,
+.timer__duration,
+.stopwatch__lap-name,
+.stopwatch__lap-time {
+  font-size: var(--font-size-large);
+}
+
+.timer__name {
   display: flex;
   align-items: center;
-  font-size: 2.4rem;
 }
-.timer-duration {
-  font-size: 2.4rem;
+
+.timer__break-info,
+.stopwatch__lap {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--spacing-xs);
 }
+
+.timer__break-info {
+  background-color: var(--color-primary3);
+  border-radius: var(--border-radius-medium);
+  padding: 1.2rem var(--spacing-lg);
+}
+
 .progress-container {
   width: 100%;
-  margin-top: 1rem;
+  margin-top: var(--spacing-sm);
   height: 0.6rem;
-  background-color: #444e57;
+  background-color: var(--color-primary1);
   border-radius: var(--border-radius-small);
 }
+
 .progress-bar {
   width: 70%;
   height: 100%;
-  background-color: #f8b657;
+  background-color: var(--color-tints--yellow);
   border-radius: var(--border-radius-small);
-  transition: width 0.3s ease-in-out;
+  transition: var(--transition-smooth);
 }
-.progressing-right {
+
+.timer__controls {
   display: flex;
   width: 100%;
   gap: 1.2rem;
   justify-content: right;
 }
-.grid--break {
+
+.timer__item-content--break {
   max-width: 80%;
 }
-.breakstate {
-  background-color: #1c2022;
-  border-radius: var(--border-radius-medium);
-  padding: 1.2rem 2rem;
-}
-.btn-red {
-  background-color: #cd5832;
-  padding: 1rem 0rem;
-}
-.btn-add-timer {
-  width: 100%;
-  height: 100%;
+
+/* Buttons */
+.btn--red {
+  background-color: var(--color-tints--red);
+  padding: var(--spacing-sm) var(--spacing-md);
   border-radius: var(--border-radius-small);
-  padding: 2rem 0rem;
-  color: #1c2022;
-  font-weight: 800;
+  width: auto;
+  height: auto;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-medium);
+}
+
+.btn--add-timer,
+.stopwatch__btn {
+  width: 100%;
+  border-radius: var(--border-radius-small);
+}
+
+.btn--add-timer {
+  height: 100%;
+  padding: var(--spacing-lg) 0;
+  color: var(--color-primary3);
+  font-weight: var(--font-weight-extrabold);
   text-transform: uppercase;
   background-color: #f3a335;
 }
@@ -79,51 +133,72 @@ LIST TIMER COMPONENTS
   transform: translate(-50%, -50%);
   max-width: 60rem;
   background-color: var(--color-primary3);
-  padding: 5rem 3.5rem;
-  box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.5);
+  padding: var(--spacing-xxl) var(--spacing-xl);
+  box-shadow: var(--shadow-dark);
   border-radius: var(--border-radius-small);
   z-index: 1000;
-  transition: all 0.5s;
+  transition: var(--transition-slow);
 }
+
 .modal__form {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
 }
-.header__modal {
-  font-size: 3.5rem;
+
+.modal__header {
+  font-size: var(--font-size-xl);
   display: flex;
   justify-content: center;
   margin-bottom: 4rem;
 }
+
 .modal__label {
-  font-size: 2.4rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+  font-size: var(--font-size-large);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-xs);
   color: var(--color-shades--500);
 }
-.btn--cancel-modal {
+
+.modal__duration {
+  display: grid;
+  gap: 0.2rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.modal__actions {
+  display: grid;
+  gap: 1.2rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.modal__btn--cancel {
   background-color: var(--color-primary1);
 }
-.btn--add-modal {
+
+.modal__btn--add {
   background-color: var(--color-tints--yellowdark);
 }
-.btn--cancel-modal,
-.btn--add-modal {
-  padding: 1.5rem 0rem;
+
+.modal__btn {
+  padding: var(--spacing-md) 0;
   border-radius: var(--border-radius-small);
-  font-weight: 600;
-  font-size: 2.4rem;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-large);
 }
-.grid--2-col-modal-duration input {
+
+.modal__duration input {
   width: 100%;
 }
-.grid--2-col-modal-duration input:first-child {
+
+.modal__input--hours {
   border-radius: var(--border-radius-small) 0 0 var(--border-radius-small);
 }
-.grid--2-col-modal-duration input:last-child {
+
+.modal__input--minutes {
   border-radius: 0 var(--border-radius-small) var(--border-radius-small) 0;
 }
+
 .overlay {
   position: fixed;
   top: 0;
@@ -133,70 +208,52 @@ LIST TIMER COMPONENTS
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
   z-index: 100;
-  transition: all 0.5s;
+  transition: var(--transition-slow);
 }
 
 /* /////////////////////////////////////////// */
 /* 
-CURRENT TIME COMPONENTS
+STOPWATCH COMPONENTS
 */
-.current-stopwatch {
-  display: flex;
-  justify-content: center;
-  font-size: 7.2rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  padding: 3.2rem 0 0rem 0;
-}
+
 /* 
-BTN STOPWATCH COMPONENTS
+STOPWATCH CONTROLS
 */
-.flexbox--stopwatch {
+.stopwatch__controls {
   display: flex;
-  gap: 2rem;
+  gap: var(--spacing-lg);
   justify-content: center;
   padding: 3rem 0 7.5rem 0;
 }
-.stopwatch {
+
+.stopwatch__btn {
   width: 150px;
 }
-.stopwatch-btn-pause,
-.stopwatch-btn-resume {
-  background-color: #cb821c;
+
+.stopwatch__btn--pause,
+.stopwatch__btn--resume {
+  background-color: var(--color-tints--yellowdark);
 }
 
-/* 
-List STOPWATCH COMPONENTS
-*/
-.lap {
-  padding: 0 2rem;
-}
-.lap-name,
-.lap-time {
-  font-size: 2.4rem;
-}
-.scroll-lap {
-  max-height: 390px;
-  overflow-y: auto;
-}
-/* Largeur de la scrollbar */
-.scroll-lap::-webkit-scrollbar {
-  width: 8px; /* Ajuste selon tes préférences */
+.stopwatch__lap {
+  padding: 0 var(--spacing-lg);
 }
 
-/* Couleur/fond de la “piste” de la scrollbar */
-.scroll-lap::-webkit-scrollbar-track {
+/* Scrollbar styling */
+.stopwatch__laps::-webkit-scrollbar {
+  width: 8px;
+}
+
+.stopwatch__laps::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 4px;
 }
 
-/* Couleur/fond de la “thumb” (partie coulissante) */
-.scroll-lap::-webkit-scrollbar-thumb {
+.stopwatch__laps::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 4px;
 }
 
-/* Couleur au survol de la thumb */
-.scroll-lap::-webkit-scrollbar-thumb:hover {
+.stopwatch__laps::-webkit-scrollbar-thumb:hover {
   background: #555;
 }

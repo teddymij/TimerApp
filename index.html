@@ -17,74 +17,44 @@
     <script src="js/script.js" defer></script>
   </head>
   <body>
-    <header class="header-main">
-      <nav class="nav-tab">
-        <button class="nav-tab-btn btn-timer btn-tab-active">Timer</button>
-        <button class="nav-tab-btn btn-stopwatch btn-tab-inactive">
+    <header class="header">
+      <nav class="tabs">
+        <button class="tabs__btn tabs__btn--timer tabs__btn--active">
+          Timer
+        </button>
+        <button class="tabs__btn tabs__btn--stopwatch tabs__btn--inactive">
           Stopwatch
         </button>
       </nav>
     </header>
     <main>
       <div class="container">
-        <section id="timer">
-          <h1 class="current-time">pm</h1>
-          <nav class="grid--row" id="list-timers">
-            <!-- <li class="timer" id="2">
-              <div class="grid--2-col grid--break">
-                <div class="break-left">
-                  <div class="flexbox-2 breakstate">
-                    <h2 class="timer-name">Break</h2>
-                    <h2 class="timer-duration">04:15</h2>
-                  </div>
-                </div>
-                <div class="break-progressing-right">
-                  <div class="break-progressing-bar"></div>
-                </div>
-              </div>
-            </li>
-            <li class="timer" id="3">
-              <div class="grid--2-col grid--timeup">
-                <h2 class="timer-name">Time's up !</h2>
-                <button class="nav-tab-btn btn-red">Start Break</button>
-              </div>
-            </li>
-            <li class="timer" id="4">
-              <div class="grid--2-col grid--breakend">
-                <h2 class="timer-name">Break end</h2>
-                <div class="progressing-right">
-                  <button class="btn btn-reset">
-                    <img src="img/icon-reset.svg" alt="Reset-button" />
-                  </button>
-                  <button class="btn btn-close" id="delete-timer-4">
-                    <img src="img/icon-close.svg" alt="Close-button" />
-                  </button>
-                </div>
-              </div>
-            </li> -->
-          </nav>
-          <div class="add">
-            <button class="btn btn-add-timer" id="delete-timer-4">
-              Add Timer
-            </button>
+        <section id="timer" class="timer">
+          <h1 class="timer__current-time">pm</h1>
+          <ul class="timer__list" id="list-timers">
+            <!-- Timer items will be added here -->
+          </ul>
+          <div class="timer__add">
+            <button class="btn btn--add-timer">Add Timer</button>
           </div>
         </section>
-        <section id="stopwatch" class="hidden">
-          <h1 class="current-stopwatch">00:00:00</h1>
-          <div class="flexbox--stopwatch">
-            <button class="stopwatch stopwatch-btn-round hidden">
+        <section id="stopwatch" class="stopwatch hidden">
+          <h1 class="stopwatch__current-time">00:00:00</h1>
+          <div class="stopwatch__controls">
+            <button class="stopwatch__btn stopwatch__btn--round hidden">
               + Round
             </button>
-            <button class="stopwatch stopwatch-btn-reset">Reset</button>
-            <button class="stopwatch stopwatch-btn-pause hidden">Pause</button>
-            <button class="stopwatch stopwatch-btn-resume">Resume</button>
+            <button class="stopwatch__btn stopwatch__btn--reset">Reset</button>
+            <button class="stopwatch__btn stopwatch__btn--pause hidden">
+              Pause
+            </button>
+            <button class="stopwatch__btn stopwatch__btn--resume">
+              Resume
+            </button>
           </div>
-          <nav class="grid--row scroll-lap" id="list-stopwatch">
-            <!-- <li class="lap flexbox-2" id="1">
-              <h2 class="lap-name">Lap 1</h2>
-              <h2 class="lap-time">01:02:15</h2>
-            </li> -->
-          </nav>
+          <ul class="stopwatch__laps" id="list-stopwatch">
+            <!-- Stopwatch items will be added here -->
+          </ul>
         </section>
       </div>
     </main>
@@ -92,28 +62,36 @@
       <p>© 2025 Teddy. All rights reserved.</p>
     </footer>
     <div class="modal hidden">
-      <h2 class="header__modal">Add timer</h2>
+      <h2 class="modal__header">Add timer</h2>
       <form class="modal__form">
         <label class="modal__label">Name</label>
-        <input type="text" id="input-timer" placeholder="Workout" required />
+        <input
+          type="text"
+          id="input-timer"
+          class="modal__input"
+          placeholder="Workout"
+          required
+        />
         <label class="modal__label">Duration</label>
-        <div class="grid--2-col-modal grid--2-col-modal-duration">
+        <div class="modal__duration">
           <input
             type="number"
             id="input-duration-h"
+            class="modal__input modal__input--hours"
             placeholder="hours"
             required
           />
           <input
             type="number"
             id="input-duration-min"
+            class="modal__input modal__input--minutes"
             placeholder="min"
             required
           />
         </div>
-        <div class="grid--2-col-modal">
-          <button class="btn--cancel-modal">Cancel</button>
-          <button class="btn--add-modal">Add</button>
+        <div class="modal__actions">
+          <button class="modal__btn modal__btn--cancel">Cancel</button>
+          <button class="modal__btn modal__btn--add">Add</button>
         </div>
       </form>
     </div>
