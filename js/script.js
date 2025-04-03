@@ -67,7 +67,7 @@ const timers = [
   {
     id: 2,
     name: 'Meditation',
-    duration: '00:01',
+    duration: '02:01',
     progress: 0,
     isRunning: false,
     isPaused: false,
@@ -76,7 +76,7 @@ const timers = [
   {
     id: 3,
     name: 'Pomodoro',
-    duration: '00:01',
+    duration: '01:01',
     progress: 0,
     isRunning: false,
     isPaused: false,
